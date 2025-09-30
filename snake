@@ -1,0 +1,96 @@
+import turtle
+import random
+
+t1 = turtle.Turtle() #scoring
+snake = turtle.Turtle() #green snake
+food = turtle.Turtle() #food
+score = 0
+
+snake.up()
+food.up()
+snake.shape('square')
+food.shape('circle')
+food.color('red')
+snake.color('green')
+screen = turtle.Screen()
+screen.bgcolor('black')
+
+snake.direction = ""
+
+def up():
+    snake.direction = "up"
+
+def down():
+    snake.direction = "down"
+
+def right():
+    snake.direction = "right"
+
+def left():
+    snake.direction = "left"
+
+# linking with keys
+screen.listen()
+
+screen.onkey(up, 'w')
+screen.onkey(down, 's')
+screen.onkey(right, 'd')
+screen.onkey(left, 'a')
+
+# moving function
+def move():
+    if snake.direction == 'up':
+        y = snake.ycor()
+        snake.sety(y + 5)
+    if snake.direction == 'down':
+        y = snake.ycor()
+        snake.sety(y - 5)
+    if snake.direction == 'left':
+        x = snake.xcor()
+        snake.setx(x - 5)
+    if snake.direction == 'right':
+        x = snake.xcor()
+        snake.setx(x + 5)
+        
+
+def check():
+    global score
+    d = snake.distance(food)
+    if d < 15:
+        x = random.randint(-100, 100)
+        y = random.randint(-100, 100)
+        food.goto(x, y)
+        score += 1
+        print(score)
+        t1.up()
+        t1.goto(-100, 100)
+        t1.down()
+        t1.clear()
+        t1.write(score, font=('Sans serif', 20, 'bold'))
+
+        #snake body groooooooooooooooooooooooooooooooooooowing
+        new = turtle.Turtle()
+        new.shape('square')
+        new.color('peachpuff')
+        new.up()
+        snakesgohiss.append(new)
+    
+snakesgohiss = []
+
+while True:
+    screen.update()
+    move()
+    check()
+    if len(snakesgohiss) > 0:
+        x = snake.xcor()
+        y = snake.ycor()
+    
+    for i in range(len(snakesgohiss) -1, 0, -1):
+        x = snakesgohiss[i-1].xcor()
+        y = snakesgohiss[i-1].ycor()
+        snakesgohiss[i].goto(x, y)
+
+
+#Cows go moo
+#Birds go tweet
+#Horses go neigh
